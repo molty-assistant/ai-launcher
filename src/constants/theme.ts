@@ -114,6 +114,13 @@ export const typography = {
     fontWeight: "400" as const,
     lineHeight: 18,
   },
+  label: {
+    fontSize: 13,
+    fontWeight: "600" as const,
+    lineHeight: 18,
+    letterSpacing: 0.5,
+    textTransform: "uppercase" as const,
+  },
 } as const;
 
 export const shadows = {
