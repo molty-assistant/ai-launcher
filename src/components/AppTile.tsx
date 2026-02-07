@@ -1,4 +1,4 @@
-import { Pressable, Text, StyleSheet, View } from "react-native";
+import { Platform, Pressable, Text, StyleSheet, View } from "react-native";
 import * as Haptics from "expo-haptics";
 import * as Linking from "expo-linking";
 import { AIApp } from "@/constants/apps";
@@ -12,6 +12,9 @@ interface AppTileProps {
 export function AppTile({ app, size = 80 }: AppTileProps) {
   const colors = useThemeColors();
 
+  const storeUrl =
+    Platform.OS === "android" ? app.playStoreUrl : app.fallbackUrl;
+
   const handlePress = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
@@ -21,12 +24,12 @@ export function AppTile({ app, size = 80 }: AppTileProps) {
         await Linking.openURL(app.urlScheme);
       } else {
         // App not installed — open store page
-        await Linking.openURL(app.fallbackUrl);
+        await Linking.openURL(storeUrl);
       }
     } catch {
       // Last resort: try the fallback URL
       try {
-        await Linking.openURL(app.fallbackUrl);
+        await Linking.openURL(storeUrl);
       } catch {
         // Silently fail — nothing we can do
       }
@@ -85,7 +88,6 @@ const styles = StyleSheet.create({
     marginTop: spacing.xs,
     fontSize: 12,
     fontWeight: "500",
-    color: "#FFFFFF", // overridden by inline style
     textAlign: "center",
     width: "100%",
   },

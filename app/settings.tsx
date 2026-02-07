@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import * as Haptics from "expo-haptics";
 import { DraggableAppList } from "@/components/DraggableAppList";
 import { SelectableAppRow } from "@/components/SelectableAppRow";
@@ -64,16 +63,15 @@ export default function SettingsScreen() {
   };
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: colors.background,
-            paddingTop: insets.top + spacing.md,
-          },
-        ]}
-      >
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: colors.background,
+          paddingTop: insets.top + spacing.md,
+        },
+      ]}
+    >
         {/* Header */}
         <View style={styles.header}>
           <Pressable
@@ -155,8 +153,7 @@ export default function SettingsScreen() {
             </ScrollView>
           </>
         )}
-      </View>
-    </GestureHandlerRootView>
+    </View>
   );
 }
 

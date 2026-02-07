@@ -10,8 +10,10 @@ export interface AIApp {
   id: string;
   name: string;
   urlScheme: string;
-  /** Fallback URL if the app isn't installed (App Store / Play Store) */
+  /** Fallback URL if the app isn't installed (App Store) */
   fallbackUrl: string;
+  /** Play Store fallback URL for Android */
+  playStoreUrl: string;
   /** Brand colour for the icon tile */
   color: string;
   /** Emoji placeholder — replace with actual icons/images later */
@@ -24,6 +26,7 @@ export const AI_APPS: AIApp[] = [
     name: "ChatGPT",
     urlScheme: "chatgpt://",
     fallbackUrl: "https://apps.apple.com/app/chatgpt/id6448311069",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.openai.chatgpt",
     color: "#10A37F",
     emoji: "💬",
   },
@@ -32,6 +35,7 @@ export const AI_APPS: AIApp[] = [
     name: "Claude",
     urlScheme: "claude://",
     fallbackUrl: "https://apps.apple.com/app/claude-by-anthropic/id6473753684",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.anthropic.claude",
     color: "#D4A574",
     emoji: "🧠",
   },
@@ -40,6 +44,7 @@ export const AI_APPS: AIApp[] = [
     name: "Gemini",
     urlScheme: "gemini://",
     fallbackUrl: "https://apps.apple.com/app/google-gemini/id6477489129",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.google.android.apps.bard",
     color: "#4285F4",
     emoji: "✨",
   },
@@ -48,6 +53,7 @@ export const AI_APPS: AIApp[] = [
     name: "Copilot",
     urlScheme: "mscopilot://",
     fallbackUrl: "https://apps.apple.com/app/microsoft-copilot/id6738322478",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.microsoft.copilot",
     color: "#7B61FF",
     emoji: "🤖",
   },
@@ -56,6 +62,7 @@ export const AI_APPS: AIApp[] = [
     name: "Grok",
     urlScheme: "grok://",
     fallbackUrl: "https://apps.apple.com/app/grok/id6670324846",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.x.grok",
     color: "#1DA1F2",
     emoji: "⚡",
   },
@@ -64,6 +71,7 @@ export const AI_APPS: AIApp[] = [
     name: "Perplexity",
     urlScheme: "perplexity://",
     fallbackUrl: "https://apps.apple.com/app/perplexity-ask-anything/id6714467650",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=ai.perplexity.app.android",
     color: "#20B8CD",
     emoji: "🔍",
   },
@@ -72,6 +80,7 @@ export const AI_APPS: AIApp[] = [
     name: "DeepSeek",
     urlScheme: "deepseek://",
     fallbackUrl: "https://apps.apple.com/app/deepseek/id6737534691",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.deepseek.chat",
     color: "#0066FF",
     emoji: "🌊",
   },
@@ -80,6 +89,7 @@ export const AI_APPS: AIApp[] = [
     name: "Poe",
     urlScheme: "poe://",
     fallbackUrl: "https://apps.apple.com/app/poe-ai-chat-bot/id1640745955",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.quora.poe",
     color: "#6C5CE7",
     emoji: "📝",
   },

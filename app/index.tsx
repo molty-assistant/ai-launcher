@@ -5,7 +5,7 @@ import * as Haptics from "expo-haptics";
 import { AppGrid } from "@/components/AppGrid";
 import { useStorage } from "@/hooks";
 import { AI_APPS, DEFAULT_APP_IDS } from "@/constants/apps";
-import { useThemeColors, spacing, typography, borderRadius } from "@/constants/theme";
+import { useThemeColors, spacing, typography } from "@/constants/theme";
 
 export default function HomeScreen() {
   const colors = useThemeColors();
