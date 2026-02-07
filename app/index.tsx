@@ -1,8 +1,10 @@
+import { useEffect, useState, useCallback } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
 import { AppGrid } from "@/components/AppGrid";
+import { Toast } from "@/components/Toast";
 import { useStorage } from "@/hooks";
 import { AI_APPS, DEFAULT_APP_IDS } from "@/constants/apps";
 import { useThemeColors, spacing, typography } from "@/constants/theme";
@@ -15,17 +17,34 @@ export default function HomeScreen() {
     "selected-apps",
     DEFAULT_APP_IDS
   );
+  const [onboarded, , onboardingLoading] = useStorage<boolean>(
+    "onboarded",
+    false
+  );
+
+  // Redirect to onboarding on first launch
+  useEffect(() => {
+    if (!loading && !onboardingLoading && !onboarded) {
+      router.replace("/onboarding");
+    }
+  }, [loading, onboardingLoading, onboarded]);
 
   const selectedApps = selectedIds
     .map((id) => AI_APPS.find((a) => a.id === id))
     .filter(Boolean) as typeof AI_APPS;
+
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const handleNotInstalled = useCallback((appName: string) => {
+    setToastMessage(`${appName} not installed — opening store`);
+  }, []);
 
   const handleSettings = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     router.push("/settings");
   };
 
-  if (loading) {
+  if (loading || onboardingLoading) {
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]} />
     );
@@ -64,8 +83,11 @@ export default function HomeScreen() {
 
       {/* App Grid */}
       <View style={styles.gridContainer}>
-        <AppGrid apps={selectedApps} />
+        <AppGrid apps={selectedApps} onNotInstalled={handleNotInstalled} />
       </View>
+
+      {/* Toast for "not installed" feedback */}
+      <Toast message={toastMessage} onDismiss={() => setToastMessage(null)} />
 
       {/* Footer hint */}
       <Text style={[styles.hint, { color: colors.textSecondary }]}>

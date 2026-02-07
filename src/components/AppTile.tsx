@@ -7,9 +7,10 @@ import { useThemeColors, spacing, shadows } from "@/constants/theme";
 interface AppTileProps {
   app: AIApp;
   size?: number;
+  onNotInstalled?: (appName: string) => void;
 }
 
-export function AppTile({ app, size = 80 }: AppTileProps) {
+export function AppTile({ app, size = 80, onNotInstalled }: AppTileProps) {
   const colors = useThemeColors();
 
   const storeUrl =
@@ -23,15 +24,16 @@ export function AppTile({ app, size = 80 }: AppTileProps) {
       if (supported) {
         await Linking.openURL(app.urlScheme);
       } else {
-        // App not installed — open store page
+        // App not installed — notify and open store page
+        onNotInstalled?.(app.name);
         await Linking.openURL(storeUrl);
       }
     } catch {
-      // Last resort: try the fallback URL
       try {
+        onNotInstalled?.(app.name);
         await Linking.openURL(storeUrl);
       } catch {
-        // Silently fail — nothing we can do
+        // Silently fail
       }
     }
   };

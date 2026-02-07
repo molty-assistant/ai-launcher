@@ -5,9 +5,10 @@ import { spacing } from "@/constants/theme";
 
 interface AppGridProps {
   apps: AIApp[];
+  onNotInstalled?: (appName: string) => void;
 }
 
-export function AppGrid({ apps }: AppGridProps) {
+export function AppGrid({ apps, onNotInstalled }: AppGridProps) {
   const { width } = useWindowDimensions();
 
   // Calculate tile size based on screen width
@@ -23,7 +24,7 @@ export function AppGrid({ apps }: AppGridProps) {
     <View style={styles.grid}>
       {apps.map((app) => (
         <View key={app.id} style={styles.tileWrapper}>
-          <AppTile app={app} size={tileSize} />
+          <AppTile app={app} size={tileSize} onNotInstalled={onNotInstalled} />
         </View>
       ))}
     </View>
